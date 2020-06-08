@@ -1,15 +1,15 @@
-import React, { Component } from 'react';
-import './App.css';
-import { connect } from 'react-redux';
-import { addItem } from  './actions/items';
+import React, { Component } from 'react'; // import react
+import './App.css'; // import stylesheet for App.js '.' takes you one level up 
+import { connect } from 'react-redux'; // importing connect feature from react-redux package / connects a react components to a redux store 
+import { addItem } from  './actions/items'; // importing the action addItem from actions
 
-class App extends Component {
+class App extends Component { // declaring App class as a react component
 
-  handleOnClick() {
-    this.props.store.dispatch(addItem());
+  handleOnClick() { // handle click of button
+    this.props.addItem(); // access dispatch to change state 
   }
 
-  render() {
+  render() { // jsx content being rendered to page 
     return (
       <div className="App">
         <button onClick={(event) => this.handleOnClick(event)}>
@@ -27,4 +27,12 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps)(App);
+const mapDispatchToProps = dispatch => {
+  return {
+    addItem: () => {
+      dispatch(addItem())
+    }
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
